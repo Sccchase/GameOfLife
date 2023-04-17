@@ -13,7 +13,7 @@ DrawingPanel::DrawingPanel(wxFrame* parent)
 
 void DrawingPanel::SetGridSize(int gridSize)
 {
-    gridSize = gridSize;
+    this->gridSize = gridSize;
 }
 
 void DrawingPanel::SetGameBoard(std::vector<std::vector<bool>>& gameBoard)
@@ -21,7 +21,7 @@ void DrawingPanel::SetGameBoard(std::vector<std::vector<bool>>& gameBoard)
     m_gameBoard = &gameBoard;
 }
 
-void DrawingPanel::OnPaint(wxPaintEvent&)
+void DrawingPanel::OnPaint(wxPaintEvent& event)
 {
     if (m_gameBoard == nullptr)
         return;
@@ -57,5 +57,14 @@ void DrawingPanel::OnMouseUp(wxMouseEvent& event)
     int width, height;
     GetClientSize(&width, &height);
 
-    int cellWidth = width;
+    int cellWidth = width / gridSize;
+    int cellHeight = height / gridSize;
+
+    int row = mouseY / cellHeight;
+    int col = mouseX / cellWidth;
+
+    (*m_gameBoard)[row][col] = !(*m_gameBoard)[row][col];
+
+    Refresh();
 }
+

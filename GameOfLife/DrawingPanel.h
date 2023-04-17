@@ -23,7 +23,7 @@ public:
 
 private:
     wxGraphicsContext* graphicsContext;
-
+  
     int gridSize = 15;
     int cellSize = 10;
     std::vector<std::vector<bool>> grid;
